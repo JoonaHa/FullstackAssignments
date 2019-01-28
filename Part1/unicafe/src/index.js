@@ -20,21 +20,24 @@ const Statistics = ({good ,bad,neutral}) => {
         <div>Ei yhtään palautetta annettu</div>
       )
     return (
-    <table>  
-      <Statistic number={good} text1='hyvä'/>
-      <Statistic number={neutral} text1='neutraali'/>
-      <Statistic number={bad} text1='huono'/>
-      <Statistic number={total} text1='yhteensä'/>
-      <Statistic number={(good-bad) / (total)} text1='keskiarvo'/>
-      <Statistic number={(good / total) * 100} text1 = 'positiivisia' text2 = '%'/>
-      </table>  
+    <table>
+      <tbody>  
+        <Statistic number={good} text1='hyvä'/>
+        <Statistic number={neutral} text1='neutraali'/>
+        <Statistic number={bad} text1='huono'/>
+        <Statistic number={total} text1='yhteensä'/>
+        <Statistic number={(good-bad) / (total)} text1='keskiarvo'/>
+        <Statistic number={(good / total) * 100} text1 = 'positiivisia' text2 = '%'/>
+      </tbody>
+    </table>
+    
     )
 }    
 
 const Statistic = ({number, text1, text2}) => (
     <tr>
-      <th>{text1} :</th> 
-      <th>{number} {text2}</th>
+      <td>{text1} :</td> 
+      <td>{number} {text2}</td>
     </tr>
 )
 
