@@ -1,0 +1,7 @@
+POST https://immense-savannah-71880.herokuapp.com/api/persons
+Content-Type: application/json
+
+{
+    "number": "02-123423345",
+    "name": "Matti Meikalainen"
+}   
