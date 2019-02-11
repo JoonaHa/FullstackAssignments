@@ -57,11 +57,22 @@ let persons = [
 
   app.post('/api/persons', (request, response) => {
     const body = request.body
-  
+    var notDublicate = (persons.filter(p => p.name === body.name)
+    .length === 0)
+    console.log(persons.filter(p => p.name === body.name)
+      .length === 0)
+    console.log(notDublicate)
+    
     if (body.number === undefined || body.name === undefined) {
       return response.status(400).json({ 
-        error: 'content missing' 
+        error: 'name or number missing' 
       })
+    }
+
+    if (!notDublicate) {
+        return response.status(400).json({
+            error: 'name must be unique'
+        })
     }
 
 
@@ -73,6 +84,8 @@ let persons = [
       }
     
       persons = persons.concat(person)
+
+    
     
       response.json(person)
   })
