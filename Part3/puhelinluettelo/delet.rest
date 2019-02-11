@@ -1,1 +1,1 @@
-DELETE http://localhost:3001/api/persons/2
+DELETE https://immense-savannah-71880.herokuapp.com/api/persons/2

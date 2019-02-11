@@ -1,4 +1,4 @@
-POST http://localhost:3001/api/persons
+POST https://immense-savannah-71880.herokuapp.com/api/persons
 Content-Type: application/json
 
 {
