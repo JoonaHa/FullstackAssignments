@@ -31,6 +31,12 @@ let persons = [
     res.json(persons)
   })
 
+  app.get('/info', (req,res) => {
+      const lenght = persons.length;
+      const content = `<p> Puhelin luettelossa ${lenght}  henkilön tiedot </p> ${new Date}` 
+     res.send(content)
+  })
+
   const PORT = 3001
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
