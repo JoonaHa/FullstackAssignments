@@ -6,3 +6,4 @@ Homework assignments for University "Fullstack" course
 * [Part 1/Week 1](/Part1/)
 * [Part 2/Week 2](/Part2/)
 * [Part 3/Week 3](/Part3/)
+* [Part 4/Week 4](/Part4/)
