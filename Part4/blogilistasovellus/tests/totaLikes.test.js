@@ -73,3 +73,16 @@ describe('total likes', () => {
         expect(result).toBe(36)
       })
   })
+
+  describe('favorite likes', () => { 
+
+    const blog = {
+        title: "Canonical string reduction",
+        author: "Edsger W. Dijkstra",
+        likes: 12
+      }
+    
+    test('retunrs the right object', () => {
+        expect(listHelper.favoriteBlog(blog).toEqual(blog))
+    })
+  })
