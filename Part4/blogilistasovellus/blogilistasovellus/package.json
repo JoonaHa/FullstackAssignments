@@ -1,0 +1,16 @@
+{
+  "name": "blogilistasovellus",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "npm start",
+    "watch": "nodemon index.js"
+  },
+  "author": "JoonaHa",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}
