@@ -6,7 +6,8 @@
   "scripts": {
     "test": "npm test",
     "start": "npm start",
-    "watch": "nodemon index.js"
+    "watch": "nodemon index.js",
+    "lint": "eslint ."
   },
   "author": "JoonaHa",
   "license": "ISC",
@@ -15,6 +16,7 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "mongoose": "^5.4.13"
   }
