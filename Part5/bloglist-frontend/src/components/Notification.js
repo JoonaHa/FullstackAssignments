@@ -6,10 +6,11 @@ const Notification = ({ message }) => {
   }
 
   return (
-    <div className="error" style={{ color: 'red', fontWeight: 'bold'} }>
-       {message}
+    <div className="error" style={{ color: 'red', fontWeight: 'bold' } }>
+      {message}
     </div>
   )
 }
+
 
 export default Notification

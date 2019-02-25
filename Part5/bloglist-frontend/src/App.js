@@ -3,22 +3,22 @@ import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login'
 import Notification from './components/Notification'
+import Togglable from './components/Togglable'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [username, setUsername] = useState('') 
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState(null)
   const [user, setUser] = useState(null)
-  const [title, setTitle] = useState(null)
-  const [author, setAuthor] = useState(null)
-  const [url, setUrl] = useState(null)
-  
-  
+  const [title, setTitle] = useState('')
+  const [author, setAuthor] = useState('')
+  const [url, setUrl] = useState('')
+
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
-    )  
+    )
   }, [])
 
   useEffect(() => {
@@ -33,28 +33,28 @@ const App = () => {
 
 
   const addBlog = (event) => {
- event.preventDefault()
+    event.preventDefault()
     const newBlog = {
       title: title,
       author: author,
       url: url
     }
-  try{ 
-    blogService
-      .create(newBlog).then(returnedBlog => {
-        setBlogs(blogs.concat(returnedBlog))
-        setErrorMessage(`Blogpost ${title} by author ${author} created succesfully`)
-        setTimeout(() => {
-          setErrorMessage(null)
-        }, 5000)
-       setAuthor(null)
-       setTitle(null)
-       setUrl(null)
+    try {
+      blogService
+        .create(newBlog).then(returnedBlog => {
+          setBlogs(blogs.concat(returnedBlog))
+          setErrorMessage(`Blogpost ${title} by author ${author} created succesfully`)
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
+          setAuthor('')
+          setTitle('')
+          setUrl('')
 
-      })
+        })
 
-    } catch {
-      setErrorMessage("Give proper title and author")
+    } catch (exception) {
+      setErrorMessage('Give proper title and author')
       setTimeout(() => {
         setErrorMessage(null)
       }, 5000)
@@ -63,48 +63,56 @@ const App = () => {
 
 
   const logout = () => {
-      window.localStorage.clear()
-      window.location.reload(true)
+    window.localStorage.clear()
+    setUser(null)
+    window.location.reload(true)
+  }
+
+  const newBlogForm = () => {
+    return (
+      <Togglable buttonLabel='create'>
+        <BlogForm/>
+      </Togglable>
+    )
   }
 
 
 
-
-  const blogForm = () => (
+  const BlogForm = () => (
     <form onSubmit={addBlog}>
-    <div>
-      Title:  
-      <input
-        value={title}
-        name ="Title"
-        onChange= {({ target }) => setTitle(target.value)}
-      />
-    </div>
-    <div>
-      Author:  
-      <input
-        value={author}
-        name ="Author"
-        onChange={({ target }) => setAuthor(target.value)}
-      />
-    </div>
-    <div>
-      URL:  
-      <input
-        value={url}
-        name ="URL"
-        onChange={({ target }) => setUrl(target.value)}
-      />
+      <div>
+      Title:
+        <input
+          value={title}
+          name ="Title"
+          onChange= {({ target }) => setTitle(target.value)}
+        />
+      </div>
+      <div>
+      Author:
+        <input
+          value={author}
+          name ="Author"
+          onChange={({ target }) => setAuthor(target.value)}
+        />
+      </div>
+      <div>
+      URL:
+        <input
+          value={url}
+          name ="URL"
+          onChange={({ target }) => setUrl(target.value)}
+        />
       </div>
       <button type="submit">create</button>
-    </form>  
+    </form>
   )
 
   const loginForm = () => (
     <form onSubmit={handleLogin}>
       <div>
         käyttäjätunnus
-          <input
+        <input
           type="text"
           value={username}
           name="Username"
@@ -113,7 +121,7 @@ const App = () => {
       </div>
       <div>
         salasana
-          <input
+        <input
           type="password"
           value={password}
           name="Password"
@@ -121,7 +129,7 @@ const App = () => {
         />
       </div>
       <button type="submit">kirjaudu</button>
-    </form>      
+    </form>
   )
 
   const handleLogin = async (event) => {
@@ -130,7 +138,7 @@ const App = () => {
       const user = await loginService.login({
         username, password,
       })
-      console.log("logged in")
+      console.log('logged in')
       window.localStorage.setItem('loggedBlogappUser', JSON.stringify(user))
       blogService.setToken(user.token)
       setUser(user)
@@ -145,17 +153,17 @@ const App = () => {
 
   }
 
-    if (user === null) {
-      return (
-        <div>
-          <h2>Log in to application</h2>
-          <Notification message= {errorMessage} />
-          {loginForm()}
-        </div>
-      )
-    } 
-    else {
-  
+  if (user === null) {
+    return (
+      <div>
+        <h2>Log in to application</h2>
+        <Notification message= {errorMessage} />
+        {loginForm()}
+      </div>
+    )
+  }
+  else {
+
     return (
       <div>
         <h2>Blogs</h2>
@@ -165,15 +173,15 @@ const App = () => {
         <button type="submit" onClick={logout}> logout </button>
 
         <h2>Create New</h2>
-        {blogForm()}
+        {newBlogForm()}
 
         {blogs.map(blog =>
           <Blog key={blog.id} blog={blog} />
         )}
       </div>
     )
-        }
-  
+  }
+
 }
 
 
