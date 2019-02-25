@@ -2,15 +2,17 @@ import React, { useState, useEffect, } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login'
+import Notification from './components/Notification'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [username, setUsername] = useState('') 
   const [password, setPassword] = useState('')
+  const [errorMessage, setErrorMessage] = useState(null)
   const [user, setUser] = useState(null)
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [url, setUrl] = useState('')
+  const [title, setTitle] = useState(null)
+  const [author, setAuthor] = useState(null)
+  const [url, setUrl] = useState(null)
   
   
   useEffect(() => {
@@ -31,21 +33,32 @@ const App = () => {
 
 
   const addBlog = (event) => {
-    event.preventDefault()
+ event.preventDefault()
     const newBlog = {
       title: title,
       author: author,
       url: url
     }
-
+  try{ 
     blogService
       .create(newBlog).then(returnedBlog => {
         setBlogs(blogs.concat(returnedBlog))
-       setAuthor('')
-       setTitle('')
-       setUrl('')
+        setErrorMessage(`Blogpost ${title} by author ${author} created succesfully`)
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
+       setAuthor(null)
+       setTitle(null)
+       setUrl(null)
 
       })
+
+    } catch {
+      setErrorMessage("Give proper title and author")
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+    }
   }
 
 
@@ -124,6 +137,7 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exception) {
+      setErrorMessage('invalid username or password')
       setTimeout(() => {
       }, 5000)
       console.log('invalid username or password')
@@ -135,6 +149,7 @@ const App = () => {
       return (
         <div>
           <h2>Log in to application</h2>
+          <Notification message= {errorMessage} />
           {loginForm()}
         </div>
       )
@@ -144,6 +159,7 @@ const App = () => {
     return (
       <div>
         <h2>Blogs</h2>
+        <Notification message={errorMessage} />
         <p>logged in as {user.name}</p>
 
         <button type="submit" onClick={logout}> logout </button>
