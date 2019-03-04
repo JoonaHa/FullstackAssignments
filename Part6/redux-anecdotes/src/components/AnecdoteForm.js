@@ -1,14 +1,21 @@
 import React from 'react'
 import {createAnecdote} from '../reducers/anecdoteReducer';
+import {notificationChange} from '../reducers/notificationReducer'
 
 const NewAnecdote = (props) => {
 
     const addAnecdote = (event) => {
         event.preventDefault()
+        const content = event.target.anecdote.value
         props.store.dispatch(
-          createAnecdote(event.target.anecdote.value)
+          createAnecdote(content)
         )
+        props.store.dispatch(notificationChange('Created new anecdote: ' + content))
         event.target.anecdote.value = ''
+        setTimeout(() => {
+            props.store.dispatch(notificationChange(''))
+          }, 5000)
+
       }
 
     return (
