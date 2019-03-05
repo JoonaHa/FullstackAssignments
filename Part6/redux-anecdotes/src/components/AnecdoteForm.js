@@ -5,16 +5,14 @@ import {notificationChange} from '../reducers/notificationReducer'
 
 const NewAnecdote = (props) => {
 
-    const addAnecdote = (event) => {
+    const addAnecdote = async (event) => {
         event.preventDefault()
         const content = event.target.anecdote.value
-        props.createAnecdote(content)
-        
-        props.notificationChange('Created new anecdote: ' + content)
         event.target.anecdote.value = ''
-        setTimeout(() => {
-            props.notificationChange('')
-          }, 5000)
+        props.createAnecdote(content)
+
+        props.notificationChange(`Created new anecdote: '${content}'`, 5)
+
 
       }
 

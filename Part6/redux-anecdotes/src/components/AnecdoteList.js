@@ -8,13 +8,10 @@ const Anecdotes = (props) => {
     const anecdotes = props.visibleAnecdotes
     
     const vote = (anecdote) => {
-        props.voteAnecdoteOf(anecdote.id)
+        props.voteAnecdoteOf(anecdote)
         console.log('vote', anecdote.id)
-        props.notificationChange('you voted: ' + anecdote.content)
-        setTimeout(() => {
-            props.notificationChange('')
-          }, 5000)
-      }
+        props.notificationChange(`you voted: '${anecdote.content}'`, 5)
+    }
 
     return (
         <div>
@@ -49,6 +46,7 @@ const mapStateToProps = (state) => {
     notificationChange
   }
 
+  
  
 export default connect(
     mapStateToProps,
