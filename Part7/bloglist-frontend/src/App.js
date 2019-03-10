@@ -6,15 +6,14 @@ import NewBlog from './components/NewBlog'
 import Notification from './components/Notification'
 import Togglable from './components/Togglable'
 import { useField } from './hooks'
+import notificationReducer, { setNotification } from './reducers/notificationReducer'
 
-const App = () => {
+const App = (props) => {
   const [username] = useField('text')
   const [password] = useField('password')
   const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null)
-  const [notification, setNotification] = useState({
-    message: null
-  })
+  const store = props.store
 
   useEffect(() => {
     blogService.getAll().then(blogs => {
@@ -31,9 +30,10 @@ const App = () => {
     }
   }, [])
 
-  const notify = (message, type = 'success') => {
-    setNotification({ message, type })
-    setTimeout(() => setNotification({ message: null }), 10000)
+  const notify = (message, error = false) => {
+    store.dispatch(
+      setNotification({message:message,error:error})
+    )
   }
 
   const handleLogin = async (event) => {
@@ -48,7 +48,7 @@ const App = () => {
       blogService.setToken(user.token)
       setUser(user)
     } catch (exception) {
-      notify('wrong username of password', 'error')
+      notify('wrong username of password', true)
     }
   }
 
@@ -86,7 +86,7 @@ const App = () => {
       <div>
         <h2>log in to application</h2>
 
-        <Notification notification={notification} />
+        <Notification store={store} />
 
         <form onSubmit={handleLogin}>
           <div>
@@ -111,7 +111,7 @@ const App = () => {
     <div>
       <h2>blogs</h2>
 
-      <Notification notification={notification} />
+      <Notification store={store} />
 
       <p>{user.name} logged in</p>
       <button onClick={handleLogout}>logout</button>

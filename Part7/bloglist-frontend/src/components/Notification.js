@@ -1,12 +1,13 @@
-import React from 'react' 
+import React from 'react'
 
-const Notification = ({ notification }) => {
-  if (notification.message === null) {
+const Notification = ({store}) => {
+  console.log(store.getState())
+  if (store.getState() === '') {
     return null
   }
 
   const style = {
-    color: notification.type === 'error' ? 'red' : 'green',
+    color: store.getState().error ? 'red' : 'green',
     background: 'lightgrey',
     fontSize: 20,
     borderStyle: 'solid',
@@ -17,7 +18,7 @@ const Notification = ({ notification }) => {
 
   return (
     <div style={style}>
-      {notification.message}
+      {store.getState().message}
     </div>
   )
 }
