@@ -1,0 +1,10 @@
+PUT http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhlbGxhcyIsImlkIjoiNWM3NDFlMDZlMjgzN2MxNGMxYzA0NWJmIiwiaWF0IjoxNTUxMTE0Njg1fQ.zJthG47fQTgGRcJU-EmdnW96jB5U8SAwFbSG1O-yuTs
+
+{
+  "title": "What would a EvE online Internet look like?",
+  "author":"benjojo",
+  "url":"https://blog.benjojo.co.uk/post/eve-online-bgp-internet",
+  "likes":5
+}

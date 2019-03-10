@@ -1,0 +1,2 @@
+GET https://opendata.hopefully.works/api/events
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUwLCJlbWFpbCI6Impvb25hLmhhbG9uZW5AaGVsc2lua2kuZmkiLCJpYXQiOjE1NTEwMzc0OTh9.0kijUn5iXM_u96R74jEQ7GLVPgcFbxc-CCUNpUj1CiU
